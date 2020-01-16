@@ -1,6 +1,7 @@
 package com.company.dataReader;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class DataReader {
     public DataReader(ArrayList<String> inputArgs) {
@@ -8,30 +9,39 @@ public class DataReader {
     }
 
     private int GetIndexAndCheckLinks() {
-        int i = 2;
-        for (; i < inputArgs.size(); i++) {
-            String argument = inputArgs.get(i);
+        int index = 2;
+        for (; index < inputArgs.size(); index++) {
+            String argument = inputArgs.get(index);
             if (argument.equals(outWord)) {
                 break;
             }
-            links.add(inputArgs.get(i));
+            links.add(inputArgs.get(index));
         }
 
-        return i;
+        return index;
     }
 
-    public void IsValidInputData() {
+    public void CheckInputData() {
         String firstArg = inputArgs.get(1);
         if (!firstArg.equals(filesWord)) {
             throw new IllegalArgumentException("Input error!");
         }
 
         int currIndex = GetIndexAndCheckLinks();
-        if (inputArgs.get(currIndex).equals(outWord)) {
-            outputFileName = inputArgs.get(currIndex + 1);
-        } else {
+
+        if (currIndex + 1 == inputArgs.size()) {
             throw new IllegalArgumentException("Input error!");
         }
+
+        if (links.isEmpty()) {
+            throw new IllegalArgumentException("Input error!");
+        }
+
+        if (!inputArgs.get(currIndex - 1).equals(outWord) && currIndex == inputArgs.size()) {
+            throw new IllegalArgumentException("Input error!");
+        }
+
+        outputFileName = inputArgs.get(currIndex + 1);
     }
 
     public ArrayList<String> GetLinks() {
@@ -43,8 +53,8 @@ public class DataReader {
     }
 
     private ArrayList<String> links = new ArrayList<String>();
-    private String filesWord = "--files";
-    private String outWord = "--out";
     private String outputFileName = "";
     private ArrayList<String> inputArgs = new ArrayList<String>();
+    private final String filesWord = "--files";
+    private final String outWord = "--out";
 }
