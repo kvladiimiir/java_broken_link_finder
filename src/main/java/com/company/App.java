@@ -3,6 +3,7 @@ package com.company;
 import com.company.dataReader.DataReader;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class App 
@@ -12,8 +13,7 @@ public class App
         if (arguments.length == 0) {
             throw new IllegalArgumentException("Input error!");
         }
-        ArrayList<String> inputArgs = new ArrayList<String>();
-        Collections.addAll(inputArgs, arguments);
+        ArrayList<String> inputArgs = new ArrayList<>(Arrays.asList(arguments));
         return inputArgs;
     }
 
