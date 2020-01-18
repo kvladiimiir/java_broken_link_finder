@@ -14,20 +14,32 @@ import java.util.Map;
 public class BrokenLinkChecker {
     public int getLinkStatusCode(String url) {
         HttpClient client = HttpClient.newBuilder().build();
+
+        URI uri;
+        try {
+            uri = URI.create(url);
+        } catch (IllegalArgumentException ex) {
+            return -1;
+        }
+
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create(url))
+                .uri(uri) //тут падает IllegalArgumentException при плохой ссылкой
                 .build();
 
-        HttpResponse response = null;
+        HttpResponse<String> response = null;
+
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (IOException | InterruptedException e) {
+        } catch (InterruptedException | IOException e) {
             e.printStackTrace();
         }
 
-        assert response != null;
-        return response.statusCode();
+        if (response != null) {
+            return response.statusCode();
+        } else {
+            return -1;
+        }
     }
 
     public Map<String, Integer> getBrokenLinksMap(ArrayList<String> links) {
@@ -36,7 +48,7 @@ public class BrokenLinkChecker {
         for (String link: links) {
             var statusCode = getLinkStatusCode(link);
 
-            if (statusCode >= 300) {
+            if (statusCode >= 300 || statusCode == -1) {
                 brokenLinksMap.put(link, statusCode);
             }
         }
@@ -44,8 +56,13 @@ public class BrokenLinkChecker {
         return brokenLinksMap;
     }
 
-    public String getStatusCodeText(Integer statusCode)
+    public String GetStatusCodeText(Integer statusCode)
     {
-        return EnglishReasonPhraseCatalog.INSTANCE.getReason(statusCode, null);
+        try {
+            return EnglishReasonPhraseCatalog.INSTANCE.getReason(statusCode, null);
+        } catch (IllegalArgumentException ex) {
+            return "Invalid Status Code";
+        }
+
     }
 }

@@ -9,14 +9,15 @@ public class App
     {
         HtmlParser htmlParser = new HtmlParser();
         ArrayList<String> links =
-                htmlParser.getUrlsFromPage("http://52.136.215.164/broken-links/");
+                htmlParser.getUrlsFromPage("http://google.com");
 
         BrokenLinkChecker brokenLinkChecker = new BrokenLinkChecker();
 
         Map<String, Integer> brokenLinksMap = brokenLinkChecker.getBrokenLinksMap(links);
 
         for (var item: brokenLinksMap.entrySet()) {
-            System.out.println(item.getKey() + " " + item.getValue() + " " + brokenLinkChecker.getStatusCodeText(item.getValue()));
+            System.out.println(item.getKey() + " " + item.getValue() + " " + brokenLinkChecker.GetStatusCodeText(item.getValue()));
         }
     }
 }
+

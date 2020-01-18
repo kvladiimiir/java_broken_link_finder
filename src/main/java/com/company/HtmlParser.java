@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class HtmlParser {
     public ArrayList<String> getUrlsFromPage(String url) {
-        ArrayList<String> urls = new ArrayList<String>();
+        ArrayList<String> urls = new ArrayList<>();
 
         Document doc = null;
 
@@ -18,21 +18,32 @@ public class HtmlParser {
             doc = Jsoup.connect(url).get();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (IllegalArgumentException ex) {
+            throw new IllegalArgumentException("Invalid url");
         }
 
-        Elements newsHeadlines = doc.select("a");
+        if (doc == null) {
+            throw new NullPointerException("Cannot get data from " + url);
+        }
+
+        Elements newsHeadlines = doc.getElementsByAttribute("href");
+        newsHeadlines.addAll(doc.getElementsByAttribute("src"));
 
         for (Element headline : newsHeadlines) {
-            if (!urls.contains(headline.absUrl("href"))
-                    && headline.absUrl("href").startsWith("http")
-                    && !headline.absUrl("href").equals("")) {
-                urls.add(headline.absUrl("href"));
+            String absUrlHref = headline.absUrl("href");
+
+            if (!urls.contains(absUrlHref)
+                    && !absUrlHref.equals("")
+                    && absUrlHref.startsWith("http")) {
+                urls.add(absUrlHref);
             }
 
-            if (!urls.contains(headline.absUrl("src"))
-                    && headline.absUrl("href").startsWith("http")
-                    && !headline.absUrl("src").equals("")) {
-                urls.add(headline.absUrl("src"));
+            String absUrlSrc = headline.absUrl("src");
+
+            if (!urls.contains(absUrlSrc)
+                    && !absUrlSrc.equals("")
+                    && absUrlSrc.startsWith("http")) {
+                urls.add(absUrlSrc);
             }
         }
 
