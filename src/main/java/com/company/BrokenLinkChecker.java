@@ -63,6 +63,5 @@ public class BrokenLinkChecker {
         } catch (IllegalArgumentException ex) {
             return "Invalid Status Code";
         }
-
     }
 }
