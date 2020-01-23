@@ -16,7 +16,7 @@ public class AppTest
         App app = new App();
         ArrayList<String> expected = new ArrayList<String>();
         /* act */
-        expected = app.ConvertStringArrayToArrayList(exampleArgumentsArray);
+        expected = app.convertStringArrayToArrayList(exampleArgumentsArray);
         /* assert */
         assertTrue(expected.get(0) == exampleArgumentsArray[0]);
     }
@@ -29,6 +29,6 @@ public class AppTest
         App app = new App();
         ArrayList<String> expected = new ArrayList<String>();
         /* act */
-        expected = app.ConvertStringArrayToArrayList(exampleArgumentsArray);
+        expected = app.convertStringArrayToArrayList(exampleArgumentsArray);
     }
 }

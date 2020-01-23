@@ -14,12 +14,12 @@ public class DataReaderTest {
         /* arrange */
         String[] exampleArgumentsArray = {"brokenLinkFinder", "--files", "page1.html", "page2.html", "--out", "report.csv"};
         App app = new App();
-        ArrayList<String> exampleArguments = app.ConvertStringArrayToArrayList(exampleArgumentsArray);
+        ArrayList<String> exampleArguments = app.convertStringArrayToArrayList(exampleArgumentsArray);
         DataReader dataReader = new DataReader(exampleArguments);
         /* act */
-        dataReader.CheckInputData();
+        dataReader.checkInputData();
         /* assert */
-        assertTrue( dataReader.GetOutputFileName() == "report.csv" );
+        assertTrue( dataReader.getOutputFileName() == "report.csv" );
     }
 
     @Test
@@ -28,12 +28,12 @@ public class DataReaderTest {
         /* arrange */
         String[] exampleArgumentsArray = {"brokenLinkFinder", "--files", "page1.html", "page2.html", "--out", "report.csv"};
         App app = new App();
-        ArrayList<String> exampleArguments = app.ConvertStringArrayToArrayList(exampleArgumentsArray);
+        ArrayList<String> exampleArguments = app.convertStringArrayToArrayList(exampleArgumentsArray);
         DataReader dataReader = new DataReader(exampleArguments);
         /* act */
-        dataReader.CheckInputData();
+        dataReader.checkInputData();
         /* assert */
-        assertTrue( dataReader.GetLinks().get(0) == "page1.html" );
+        assertTrue( dataReader.getLinks().get(0) == "page1.html" );
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -42,10 +42,10 @@ public class DataReaderTest {
         /* arrange */
         String[] exampleArgumentsArray = {"brokenLinkFinder", "-files", "page1.html", "page2.html", "--out", "report.csv"};
         App app = new App();
-        ArrayList<String> exampleArguments = app.ConvertStringArrayToArrayList(exampleArgumentsArray);
+        ArrayList<String> exampleArguments = app.convertStringArrayToArrayList(exampleArgumentsArray);
         DataReader dataReader = new DataReader(exampleArguments);
         /* act */
-        dataReader.CheckInputData();
+        dataReader.checkInputData();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -54,10 +54,10 @@ public class DataReaderTest {
         /* arrange */
         String[] exampleArgumentsArray = {"brokenLinkFinder", "--files", "page1.html", "page2.html", "--ot", "report.csv"};
         App app = new App();
-        ArrayList<String> exampleArguments = app.ConvertStringArrayToArrayList(exampleArgumentsArray);
+        ArrayList<String> exampleArguments = app.convertStringArrayToArrayList(exampleArgumentsArray);
         DataReader dataReader = new DataReader(exampleArguments);
         /* act */
-        dataReader.CheckInputData();
+        dataReader.checkInputData();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -66,10 +66,10 @@ public class DataReaderTest {
         /* arrange */
         String[] exampleArgumentsArray = {"brokenLinkFinder", "--files", "page1.html", "page2.html", "--ot", "report.csv", "report.csv"};
         App app = new App();
-        ArrayList<String> exampleArguments = app.ConvertStringArrayToArrayList(exampleArgumentsArray);
+        ArrayList<String> exampleArguments = app.convertStringArrayToArrayList(exampleArgumentsArray);
         DataReader dataReader = new DataReader(exampleArguments);
         /* act */
-        dataReader.CheckInputData();
+        dataReader.checkInputData();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -78,10 +78,10 @@ public class DataReaderTest {
         /* arrange */
         String[] exampleArgumentsArray = {"brokenLinkFinder", "--files", "page1.html", "page2.html", "--out"};
         App app = new App();
-        ArrayList<String> exampleArguments = app.ConvertStringArrayToArrayList(exampleArgumentsArray);
+        ArrayList<String> exampleArguments = app.convertStringArrayToArrayList(exampleArgumentsArray);
         DataReader dataReader = new DataReader(exampleArguments);
         /* act */
-        dataReader.CheckInputData();
+        dataReader.checkInputData();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -90,9 +90,9 @@ public class DataReaderTest {
         /* arrange */
         String[] exampleArgumentsArray = {"brokenLinkFinder", "--files", "--out", "report.csv"};
         App app = new App();
-        ArrayList<String> exampleArguments = app.ConvertStringArrayToArrayList(exampleArgumentsArray);
+        ArrayList<String> exampleArguments = app.convertStringArrayToArrayList(exampleArgumentsArray);
         DataReader dataReader = new DataReader(exampleArguments);
         /* act */
-        dataReader.CheckInputData();
+        dataReader.checkInputData();
     }
 }

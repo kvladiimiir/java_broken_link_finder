@@ -8,7 +8,7 @@ public class DataReader {
         this.inputArgs = inputArgs;
     }
 
-    private int GetIndexAndCheckLinks() {
+    private int getIndexAndCheckLinks() {
         int index = 2;
         for (; index < inputArgs.size(); index++) {
             String argument = inputArgs.get(index);
@@ -21,13 +21,13 @@ public class DataReader {
         return index;
     }
 
-    public void CheckInputData() {
+    public void checkInputData() {
         String firstArg = inputArgs.get(1);
         if (!firstArg.equals(filesWord)) {
             throw new IllegalArgumentException("Input error!");
         }
 
-        int currIndex = GetIndexAndCheckLinks();
+        int currIndex = getIndexAndCheckLinks();
 
         if (currIndex + 1 == inputArgs.size()) {
             throw new IllegalArgumentException("Input error!");
@@ -44,11 +44,11 @@ public class DataReader {
         outputFileName = inputArgs.get(currIndex + 1);
     }
 
-    public ArrayList<String> GetLinks() {
+    public ArrayList<String> getLinks() {
         return links;
     }
 
-    public String GetOutputFileName() {
+    public String getOutputFileName() {
         return outputFileName;
     }
 

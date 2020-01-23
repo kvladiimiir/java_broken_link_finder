@@ -1,10 +1,13 @@
 package com.company;
 
+import com.company.brokenLinkChecker.BrokenLinkChecker;
+import com.company.utils.StatusCodeUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 import static org.junit.Assert.assertEquals;
 
@@ -23,16 +26,17 @@ public class BrokenLinkCheckerTest {
     @Parameterized.Parameter(1)
     public String textStatusCode;
 
+    //вынести в отдельный класс
     @Test
     public void GetStatusCodeText_IntegerStatusCode_StringStatusCode() {
-        BrokenLinkChecker brokenLinkChecker = new BrokenLinkChecker();
-        String textCode = brokenLinkChecker.GetStatusCodeText(statusCode);
+        StatusCodeUtils statusCodeUtils = new StatusCodeUtils();
+        String textCode = statusCodeUtils.getStatusCodeText(statusCode);
 
         assertEquals(textCode, textStatusCode);
     }
 
     @Test
-    public void getBrokenLinksMap_ListOfLinks_BrokenLinksMap() {
+    public void getBrokenLinksMap_ListOfLinks_BrokenLinksMap() throws ExecutionException, InterruptedException {
         //arrange
         BrokenLinkChecker brokenLinkChecker = new BrokenLinkChecker();
 
