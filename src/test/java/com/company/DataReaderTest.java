@@ -12,7 +12,7 @@ public class DataReaderTest {
     public void CheckInputData_ExampleArguments_ExpectedTrue()
     {
         /* arrange */
-        String[] exampleArgumentsArray = {"brokenLinkFinder", "--files", "page1.html", "page2.html", "--out", "report.csv"};
+        String[] exampleArgumentsArray = {"--files", "page1.html", "page2.html", "--out", "report.csv"};
         ArrayList<String> exampleArguments = App.convertStringArrayToArrayList(exampleArgumentsArray);
         DataReader dataReader = new DataReader(exampleArguments);
         /* act */
@@ -25,7 +25,7 @@ public class DataReaderTest {
     public void CheckLinks_ExampleArguments_ExpectedTrue()
     {
         /* arrange */
-        String[] exampleArgumentsArray = {"brokenLinkFinder", "--files", "page1.html", "page2.html", "--out", "report.csv"};
+        String[] exampleArgumentsArray = {"--files", "page1.html", "page2.html", "--out", "report.csv"};
         ArrayList<String> exampleArguments = App.convertStringArrayToArrayList(exampleArgumentsArray);
         DataReader dataReader = new DataReader(exampleArguments);
         /* act */
@@ -38,7 +38,7 @@ public class DataReaderTest {
     public void CheckInputData_ErrorWordFilesArgument_ExpectedThrow()
     {
         /* arrange */
-        String[] exampleArgumentsArray = {"brokenLinkFinder", "-files", "page1.html", "page2.html", "--out", "report.csv"};
+        String[] exampleArgumentsArray = {"-files", "page1.html", "page2.html", "--out", "report.csv"};
         ArrayList<String> exampleArguments = App.convertStringArrayToArrayList(exampleArgumentsArray);
         DataReader dataReader = new DataReader(exampleArguments);
         /* act */
@@ -49,7 +49,7 @@ public class DataReaderTest {
     public void CheckInputData_ErrorWordOutArgument_ExpectedThrow()
     {
         /* arrange */
-        String[] exampleArgumentsArray = {"brokenLinkFinder", "--files", "page1.html", "page2.html", "--ot", "report.csv"};
+        String[] exampleArgumentsArray = {"--files", "page1.html", "page2.html", "--ot", "report.csv"};
         ArrayList<String> exampleArguments = App.convertStringArrayToArrayList(exampleArgumentsArray);
         DataReader dataReader = new DataReader(exampleArguments);
         /* act */
@@ -60,7 +60,7 @@ public class DataReaderTest {
     public void CheckInputData_TwoOutArgument_ExpectedThrow()
     {
         /* arrange */
-        String[] exampleArgumentsArray = {"brokenLinkFinder", "--files", "page1.html", "page2.html", "--ot", "report.csv", "report.csv"};
+        String[] exampleArgumentsArray = {"--files", "page1.html", "page2.html", "--ot", "report.csv", "report.csv"};
         ArrayList<String> exampleArguments = App.convertStringArrayToArrayList(exampleArgumentsArray);
         DataReader dataReader = new DataReader(exampleArguments);
         /* act */
@@ -71,7 +71,7 @@ public class DataReaderTest {
     public void CheckInputData_EmptyOutArgument_ExpectedThrow()
     {
         /* arrange */
-        String[] exampleArgumentsArray = {"brokenLinkFinder", "--files", "page1.html", "page2.html", "--out"};
+        String[] exampleArgumentsArray = {"--files", "page1.html", "page2.html", "--out"};
         ArrayList<String> exampleArguments = App.convertStringArrayToArrayList(exampleArgumentsArray);
         DataReader dataReader = new DataReader(exampleArguments);
         /* act */
@@ -82,7 +82,7 @@ public class DataReaderTest {
     public void CheckInputData_EmptyFilesArgument_ExpectedThrow()
     {
         /* arrange */
-        String[] exampleArgumentsArray = {"brokenLinkFinder", "--files", "--out", "report.csv"};
+        String[] exampleArgumentsArray = {"--files", "--out", "report.csv"};
         ArrayList<String> exampleArguments = App.convertStringArrayToArrayList(exampleArgumentsArray);
         DataReader dataReader = new DataReader(exampleArguments);
         /* act */

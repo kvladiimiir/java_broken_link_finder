@@ -8,7 +8,7 @@ public class DataReader {
     }
 
     private int getIndexAndCheckLinks() {
-        int index = 2;
+        int index = 1;
         for (; index < inputArgs.size(); index++) {
             String argument = inputArgs.get(index);
             if (argument.equals(outWord)) {
@@ -21,7 +21,7 @@ public class DataReader {
     }
 
     public void checkInputData() {
-        String firstArg = inputArgs.get(1);
+        String firstArg = inputArgs.get(0);
         if (!firstArg.equals(filesWord)) {
             throw new IllegalArgumentException("Input error!");
         }
