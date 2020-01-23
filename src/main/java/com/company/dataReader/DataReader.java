@@ -1,7 +1,6 @@
 package com.company.dataReader;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class DataReader {
     public DataReader(ArrayList<String> inputArgs) {
@@ -52,9 +51,9 @@ public class DataReader {
         return outputFileName;
     }
 
-    private ArrayList<String> links = new ArrayList<String>();
+    private ArrayList<String> links = new ArrayList<>();
     private String outputFileName = "";
-    private ArrayList<String> inputArgs = new ArrayList<String>();
+    private ArrayList<String> inputArgs = new ArrayList<>();
     private final String filesWord = "--files";
     private final String outWord = "--out";
 }

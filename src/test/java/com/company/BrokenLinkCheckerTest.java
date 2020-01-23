@@ -7,7 +7,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.util.*;
-import java.util.concurrent.ExecutionException;
 
 import static org.junit.Assert.assertEquals;
 
@@ -20,7 +19,7 @@ public class BrokenLinkCheckerTest {
         });
     }
 
-    @Parameterized.Parameter(0)
+    @Parameterized.Parameter()
     public int statusCode;
 
     @Parameterized.Parameter(1)
@@ -36,7 +35,7 @@ public class BrokenLinkCheckerTest {
     }
 
     @Test
-    public void getBrokenLinksMap_ListOfLinks_BrokenLinksMap() throws ExecutionException, InterruptedException {
+    public void getBrokenLinksMap_ListOfLinks_BrokenLinksMap() {
         //arrange
         BrokenLinkChecker brokenLinkChecker = new BrokenLinkChecker();
 
@@ -49,7 +48,7 @@ public class BrokenLinkCheckerTest {
                 "invalid link"
         };
 
-        Map<String, Integer> expectedBrokenLinksMap = new HashMap<String, Integer>();
+        Map<String, Integer> expectedBrokenLinksMap = new HashMap<>();
         expectedBrokenLinksMap.put("https://httpstat.us/301", 301);
         expectedBrokenLinksMap.put("https://httpstat.us/404", 404);
         expectedBrokenLinksMap.put("https://httpstat.us/503", 503);

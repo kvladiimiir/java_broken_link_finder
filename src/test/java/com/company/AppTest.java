@@ -1,10 +1,9 @@
 package com.company;
 
-import com.company.dataReader.DataReader;
 import org.junit.Test;
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertSame;
 
 public class AppTest
 {
@@ -13,12 +12,11 @@ public class AppTest
     {
         /* arrange */
         String[] exampleArgumentsArray = {"brokenLinkFinder", "--files", "page1.html", "page2.html", "--out", "report.csv"};
-        App app = new App();
-        ArrayList<String> expected = new ArrayList<String>();
+        ArrayList<String> expected = new ArrayList<>();
         /* act */
-        expected = app.convertStringArrayToArrayList(exampleArgumentsArray);
+        expected = App.convertStringArrayToArrayList(exampleArgumentsArray);
         /* assert */
-        assertTrue(expected.get(0) == exampleArgumentsArray[0]);
+        assertSame(expected.get(0), exampleArgumentsArray[0]);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -26,9 +24,7 @@ public class AppTest
     {
         /* arrange */
         String[] exampleArgumentsArray = {};
-        App app = new App();
-        ArrayList<String> expected = new ArrayList<String>();
         /* act */
-        expected = app.convertStringArrayToArrayList(exampleArgumentsArray);
+        App.convertStringArrayToArrayList(exampleArgumentsArray);
     }
 }
