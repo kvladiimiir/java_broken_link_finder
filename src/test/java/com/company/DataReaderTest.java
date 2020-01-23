@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertSame;
 
 public class DataReaderTest {
     @Test
@@ -13,13 +13,12 @@ public class DataReaderTest {
     {
         /* arrange */
         String[] exampleArgumentsArray = {"brokenLinkFinder", "--files", "page1.html", "page2.html", "--out", "report.csv"};
-        App app = new App();
-        ArrayList<String> exampleArguments = app.convertStringArrayToArrayList(exampleArgumentsArray);
+        ArrayList<String> exampleArguments = App.convertStringArrayToArrayList(exampleArgumentsArray);
         DataReader dataReader = new DataReader(exampleArguments);
         /* act */
         dataReader.checkInputData();
         /* assert */
-        assertTrue( dataReader.getOutputFileName() == "report.csv" );
+        assertSame("report.csv", dataReader.getOutputFileName());
     }
 
     @Test
@@ -27,13 +26,12 @@ public class DataReaderTest {
     {
         /* arrange */
         String[] exampleArgumentsArray = {"brokenLinkFinder", "--files", "page1.html", "page2.html", "--out", "report.csv"};
-        App app = new App();
-        ArrayList<String> exampleArguments = app.convertStringArrayToArrayList(exampleArgumentsArray);
+        ArrayList<String> exampleArguments = App.convertStringArrayToArrayList(exampleArgumentsArray);
         DataReader dataReader = new DataReader(exampleArguments);
         /* act */
         dataReader.checkInputData();
         /* assert */
-        assertTrue( dataReader.getLinks().get(0) == "page1.html" );
+        assertSame("page1.html", dataReader.getLinks().get(0));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -41,8 +39,7 @@ public class DataReaderTest {
     {
         /* arrange */
         String[] exampleArgumentsArray = {"brokenLinkFinder", "-files", "page1.html", "page2.html", "--out", "report.csv"};
-        App app = new App();
-        ArrayList<String> exampleArguments = app.convertStringArrayToArrayList(exampleArgumentsArray);
+        ArrayList<String> exampleArguments = App.convertStringArrayToArrayList(exampleArgumentsArray);
         DataReader dataReader = new DataReader(exampleArguments);
         /* act */
         dataReader.checkInputData();
@@ -53,8 +50,7 @@ public class DataReaderTest {
     {
         /* arrange */
         String[] exampleArgumentsArray = {"brokenLinkFinder", "--files", "page1.html", "page2.html", "--ot", "report.csv"};
-        App app = new App();
-        ArrayList<String> exampleArguments = app.convertStringArrayToArrayList(exampleArgumentsArray);
+        ArrayList<String> exampleArguments = App.convertStringArrayToArrayList(exampleArgumentsArray);
         DataReader dataReader = new DataReader(exampleArguments);
         /* act */
         dataReader.checkInputData();
@@ -65,8 +61,7 @@ public class DataReaderTest {
     {
         /* arrange */
         String[] exampleArgumentsArray = {"brokenLinkFinder", "--files", "page1.html", "page2.html", "--ot", "report.csv", "report.csv"};
-        App app = new App();
-        ArrayList<String> exampleArguments = app.convertStringArrayToArrayList(exampleArgumentsArray);
+        ArrayList<String> exampleArguments = App.convertStringArrayToArrayList(exampleArgumentsArray);
         DataReader dataReader = new DataReader(exampleArguments);
         /* act */
         dataReader.checkInputData();
@@ -77,8 +72,7 @@ public class DataReaderTest {
     {
         /* arrange */
         String[] exampleArgumentsArray = {"brokenLinkFinder", "--files", "page1.html", "page2.html", "--out"};
-        App app = new App();
-        ArrayList<String> exampleArguments = app.convertStringArrayToArrayList(exampleArgumentsArray);
+        ArrayList<String> exampleArguments = App.convertStringArrayToArrayList(exampleArgumentsArray);
         DataReader dataReader = new DataReader(exampleArguments);
         /* act */
         dataReader.checkInputData();
@@ -89,8 +83,7 @@ public class DataReaderTest {
     {
         /* arrange */
         String[] exampleArgumentsArray = {"brokenLinkFinder", "--files", "--out", "report.csv"};
-        App app = new App();
-        ArrayList<String> exampleArguments = app.convertStringArrayToArrayList(exampleArgumentsArray);
+        ArrayList<String> exampleArguments = App.convertStringArrayToArrayList(exampleArgumentsArray);
         DataReader dataReader = new DataReader(exampleArguments);
         /* act */
         dataReader.checkInputData();

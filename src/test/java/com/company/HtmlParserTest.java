@@ -54,6 +54,6 @@ public class HtmlParserTest {
         HtmlParser htmlParser = new HtmlParser();
         String url = "bad url";
         //act
-        ArrayList<String> links = htmlParser.getUrlsFromPage(url);
+        htmlParser.getUrlsFromPage(url);
     }
 }

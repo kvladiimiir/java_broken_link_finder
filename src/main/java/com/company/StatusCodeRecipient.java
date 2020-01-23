@@ -15,7 +15,7 @@ public class StatusCodeRecipient implements Callable<Integer> {
     }
 
     @Override
-    public Integer call() throws Exception {
+    public Integer call() {
         HttpClient client = HttpClient.newBuilder().build();
 
         URI uri;

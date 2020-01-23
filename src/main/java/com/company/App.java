@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 public class App
 {
@@ -22,7 +21,7 @@ public class App
     }
     //надо вынести наверн тоже
 
-    public static void main( String[] args ) throws ExecutionException, InterruptedException {
+    public static void main( String[] args ) {
         ArrayList<String> inputArgs = convertStringArrayToArrayList(args);
 
         DataReader dataReader = new DataReader(inputArgs);
@@ -35,16 +34,15 @@ public class App
         Map<String, Integer> brokenLinksMap = new HashMap<>();
         BrokenLinkChecker brokenLinkChecker = new BrokenLinkChecker();
         StatusCodeUtils statusCodeUtils = new StatusCodeUtils();
-
         HtmlParser htmlParser = new HtmlParser();
 
-        for (var link: links) {
+        for (String link: links) {
             ArrayList<String> parsedLinks = htmlParser.getUrlsFromPage(link);
 
             brokenLinksMap.putAll(brokenLinkChecker.getBrokenLinksMap(parsedLinks));
         }
 
-        for (var item: brokenLinksMap.entrySet()) {
+        for (Map.Entry<String, Integer> item: brokenLinksMap.entrySet()) {
             System.out.println(item.getKey() + " " + item.getValue() + " " + statusCodeUtils.getStatusCodeText(item.getValue()));
         }
     }
