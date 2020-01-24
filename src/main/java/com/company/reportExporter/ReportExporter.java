@@ -6,6 +6,7 @@ import com.opencsv.CSVWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReportExporter {
@@ -13,7 +14,6 @@ public class ReportExporter {
         try {
             CSVWriter writer = CreateCSVWriter(outputFileName);
             WriteReport(writer, links);
-            System.out.println(String.format("Found %d broken links, for details check file \"%s\"", links.size(), outputFileName));
         } catch (IOException e) {
             e.printStackTrace();
         }

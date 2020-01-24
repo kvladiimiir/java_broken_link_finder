@@ -45,6 +45,7 @@ public class App
 
         ReportExporter reportExporter = new ReportExporter();
         reportExporter.execute(outputFileName, brokenLinks);
+        System.out.println(String.format("Found %d broken links, for details check file \"%s\"", links.size(), outputFileName));
 
         /*for (var i: brokenLinks) {
             System.out.println(i.getUri() + " " + i.getNumberStatusCode() + " " + i.getTextStatusCode());
