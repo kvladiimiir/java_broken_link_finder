@@ -3,12 +3,12 @@ package com.company;
 import com.company.brokenLinkChecker.BrokenLinkChecker;
 import com.company.dataReader.DataReader;
 import com.company.htmlParser.HtmlParser;
-import com.company.utils.StatusCodeUtils;
+import com.company.linkResponseInfo.LinkResponseInfo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class App
 {
@@ -21,7 +21,7 @@ public class App
     }
     //надо вынести наверн тоже
 
-    public static void main( String[] args ) {
+    public static void main( String[] args ) throws IOException, ExecutionException, InterruptedException {
         ArrayList<String> inputArgs = convertStringArrayToArrayList(args);
 
         DataReader dataReader = new DataReader(inputArgs);
@@ -29,22 +29,19 @@ public class App
         ArrayList<String> links = dataReader.getLinks();
 
         String outputFileName = dataReader.getOutputFileName();
-        //System.out.println("OUTPUT FILE NAME: " + outputFileName);
 
-        Map<String, Integer> brokenLinksMap = new HashMap<>();
-        BrokenLinkChecker brokenLinkChecker = new BrokenLinkChecker();
-        StatusCodeUtils statusCodeUtils = new StatusCodeUtils();
+        ArrayList<LinkResponseInfo> brokenLinks = new ArrayList<>();
+
         HtmlParser htmlParser = new HtmlParser();
+        BrokenLinkChecker brokenLinkChecker = new BrokenLinkChecker();
 
         for (String link: links) {
             ArrayList<String> parsedLinks = htmlParser.getUrlsFromPage(link);
-
-            brokenLinksMap.putAll(brokenLinkChecker.getBrokenLinksMap(parsedLinks));
+            brokenLinks.addAll(brokenLinkChecker.getBrokenLinks(parsedLinks));
         }
 
-        for (Map.Entry<String, Integer> item: brokenLinksMap.entrySet()) {
-            System.out.println(item.getKey() + " " + item.getValue() + " " + statusCodeUtils.getStatusCodeText(item.getValue()));
+        for (var i: brokenLinks) {
+            System.out.println(i.getUri() + " " + i.getNumberStatusCode() + " " + i.getTextStatusCode());
         }
     }
 }
-
