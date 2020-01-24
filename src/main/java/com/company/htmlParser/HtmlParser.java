@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class HtmlParser {
     String[] attributes = {"href", "src"};
 
-    public ArrayList<String> getUrlsFromPage(InputDataType dataType, String url) {
+    public ArrayList<String> getUrlsFromPage(InputDataType dataType, String url) throws FileNotFoundException {
         ArrayList<String> urls = new ArrayList<>();
 
         Document doc = null;
@@ -26,6 +26,8 @@ public class HtmlParser {
                 File input = new File(url);
                 doc = Jsoup.parse(input, "UTF-8", "");
             }
+        } catch (FileNotFoundException ex) {
+            throw new FileNotFoundException("Invalid file");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (IllegalArgumentException ex) {
