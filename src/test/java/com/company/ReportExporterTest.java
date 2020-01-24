@@ -1,6 +1,6 @@
 package com.company;
 
-import com.company.dataReader.DataReader;
+import com.company.linkResponseInfo.LinkResponseInfo;
 import com.company.linkResponseInfo.LinkResponseInfo;
 import com.company.reportExporter.ReportExporter;
 import org.junit.Test;
@@ -43,8 +43,6 @@ public class ReportExporterTest {
         List<String> outputFileLines = Files.readAllLines(Paths.get("output.csv"), StandardCharsets.UTF_8);
         List<String> expectedFileLines = Files.readAllLines(Paths.get("expectedOutput.csv"), StandardCharsets.UTF_8);
         /* assert */
-        assertEquals( outputFileLines, expectedFileLines );
+        assertEquals( expectedFileLines, outputFileLines  );
     }
-
-
 }
