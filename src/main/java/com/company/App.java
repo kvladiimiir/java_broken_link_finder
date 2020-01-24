@@ -2,6 +2,7 @@ package com.company;
 
 import com.company.brokenLinkChecker.BrokenLinkChecker;
 import com.company.dataReader.DataReader;
+import com.company.enums.InputDataType;
 import com.company.htmlParser.HtmlParser;
 import com.company.linkResponseInfo.LinkResponseInfo;
 
@@ -27,6 +28,7 @@ public class App
         DataReader dataReader = new DataReader(inputArgs);
         dataReader.checkInputData();
         ArrayList<String> links = dataReader.getLinks();
+        InputDataType dataType = dataReader.getDataType();
 
         String outputFileName = dataReader.getOutputFileName();
 
@@ -36,7 +38,7 @@ public class App
         BrokenLinkChecker brokenLinkChecker = new BrokenLinkChecker();
 
         for (String link: links) {
-            ArrayList<String> parsedLinks = htmlParser.getUrlsFromPage(link);
+            ArrayList<String> parsedLinks = htmlParser.getUrlsFromPage(dataType, link);
             brokenLinks.addAll(brokenLinkChecker.getBrokenLinks(parsedLinks));
         }
 

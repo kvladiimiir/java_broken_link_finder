@@ -1,23 +1,31 @@
 package com.company.htmlParser;
 
+import com.company.enums.InputDataType;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class HtmlParser {
     String[] attributes = {"href", "src"};
 
-    public ArrayList<String> getUrlsFromPage(String url) {
+    public ArrayList<String> getUrlsFromPage(InputDataType dataType, String url) {
         ArrayList<String> urls = new ArrayList<>();
 
         Document doc = null;
 
         try {
-            doc = Jsoup.connect(url).get();
+            if (dataType == InputDataType.LINKS) {
+                doc = Jsoup.connect(url).get();
+            } else {
+                File input = new File(url);
+                doc = Jsoup.parse(input, "UTF-8", "");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (IllegalArgumentException ex) {
