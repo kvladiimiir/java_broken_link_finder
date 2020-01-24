@@ -5,6 +5,7 @@ import com.company.dataReader.DataReader;
 import com.company.enums.InputDataType;
 import com.company.htmlParser.HtmlParser;
 import com.company.linkResponseInfo.LinkResponseInfo;
+import com.company.reportExporter.ReportExporter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,8 +43,11 @@ public class App
             brokenLinks.addAll(brokenLinkChecker.getBrokenLinks(parsedLinks));
         }
 
-        for (var i: brokenLinks) {
+        ReportExporter reportExporter = new ReportExporter();
+        reportExporter.execute(outputFileName, brokenLinks);
+
+        /*for (var i: brokenLinks) {
             System.out.println(i.getUri() + " " + i.getNumberStatusCode() + " " + i.getTextStatusCode());
-        }
+        }*/
     }
 }

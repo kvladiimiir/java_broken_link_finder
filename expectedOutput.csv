@@ -1,3 +1,2 @@
-#Example of output: http://xyz.com,404,Not found
-localhost:25050,404
-localhost:25550,200
+localhost:25550,200,OK
+localhost:25050,404,Not Found
