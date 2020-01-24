@@ -4,6 +4,7 @@ import com.company.enums.InputDataType;
 import com.company.htmlParser.HtmlParser;
 import org.junit.Test;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -13,8 +14,7 @@ import static org.junit.Assert.assertEquals;
 public class HtmlParserTest {
 
     @Test
-    public void GetUrlsFromPage_Url_ListOfUrl()
-    {
+    public void GetUrlsFromPage_Url_ListOfUrl() throws FileNotFoundException {
         //arrange
         HtmlParser htmlParser = new HtmlParser();
         String url = "http://google.com";
@@ -50,11 +50,20 @@ public class HtmlParserTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void GetUrlsFromPage_InvalidUrl_ThrowsIllegalArgumentException() {
+    public void GetUrlsFromPage_InvalidUrl_ThrowsIllegalArgumentException() throws FileNotFoundException {
         //arrange
         HtmlParser htmlParser = new HtmlParser();
         String url = "bad url";
         //act
         htmlParser.getUrlsFromPage(InputDataType.LINKS, url);
+    }
+
+    @Test(expected = FileNotFoundException.class)
+    public void GetUrlsFromPage_InvalidFile_ThrowsIllegalArgumentException() throws FileNotFoundException {
+        //arrange
+        HtmlParser htmlParser = new HtmlParser();
+        String url = "bad url";
+        //act
+        htmlParser.getUrlsFromPage(InputDataType.FILES, url);
     }
 }
