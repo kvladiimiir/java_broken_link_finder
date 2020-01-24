@@ -1,5 +1,6 @@
 package com.company;
 
+import com.company.enums.InputDataType;
 import com.company.htmlParser.HtmlParser;
 import org.junit.Test;
 
@@ -43,7 +44,7 @@ public class HtmlParserTest {
 
         ArrayList<String> expectedArrayList = new ArrayList<>(Arrays.asList(expectedArray));
         //act
-        ArrayList<String> links = htmlParser.getUrlsFromPage(url);
+        ArrayList<String> links = htmlParser.getUrlsFromPage(InputDataType.LINKS, url);
         //assert
         assertEquals(expectedArrayList, links);
     }
@@ -54,6 +55,6 @@ public class HtmlParserTest {
         HtmlParser htmlParser = new HtmlParser();
         String url = "bad url";
         //act
-        htmlParser.getUrlsFromPage(url);
+        htmlParser.getUrlsFromPage(InputDataType.LINKS, url);
     }
 }
