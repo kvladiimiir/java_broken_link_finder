@@ -1,25 +1,40 @@
 package com.company.reportExporter;
 
 import com.company.linkResponseInfo.LinkResponseInfo;
-import javenue.csv.Csv;
+import com.opencsv.CSVWriter;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.List;
 
 public class ReportExporter {
-    public void execute( String outputFileName, ArrayList<LinkResponseInfo> linksStatusCode ) {
-        Csv.Writer writer = CreateCSVWriter( outputFileName );
-        WriteReport(writer, linksStatusCode);
+    public void execute(String outputFileName, ArrayList<LinkResponseInfo> links) {
+        try {
+            CSVWriter writer = CreateCSVWriter(outputFileName);
+            WriteReport(writer, links);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    private Csv.Writer CreateCSVWriter( String outputFileName ) {
-        return new Csv.Writer( outputFileName );
+    private CSVWriter CreateCSVWriter( String outputFileName ) throws IOException {
+        File file = new File( outputFileName );
+        FileWriter outputFile = new FileWriter( file );
+
+        return new CSVWriter( outputFile, ',',
+                CSVWriter.NO_QUOTE_CHARACTER,
+                CSVWriter.DEFAULT_ESCAPE_CHARACTER,
+                CSVWriter.DEFAULT_LINE_END );
     }
 
-    private void WriteReport( Csv.Writer writer, ArrayList<LinkResponseInfo> links ) {
-        writer.delimiter( ',' );
-        //writer.comment( "Example of output: http://xyz.com,404,Not found" );
-        links.forEach((link) -> writer.value(link.getUri()).value(link.getNumberStatusCode().toString()).value(link.getTextStatusCode()).newLine());
+    private void WriteReport( CSVWriter writer, ArrayList<LinkResponseInfo> links ) throws IOException {
+        for (var i: links) {
+            String[] line = { i.getUri(), i.getNumberStatusCode().toString(), i.getTextStatusCode() };
+            writer.writeNext( line );
+        }
+
         writer.close();
     }
 }
