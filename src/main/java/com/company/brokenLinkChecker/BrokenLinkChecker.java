@@ -1,34 +1,36 @@
 package com.company.brokenLinkChecker;
 
-import com.company.StatusCodeRecipient;
+import com.company.statusCodeRecipient.StatusCodeRecipient;
+import com.company.linkResponseInfo.LinkResponseInfo;
+import com.company.utils.ConfigUtils;
+
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.concurrent.*;
 
 public class BrokenLinkChecker {
-    public Map<String, Integer> getBrokenLinksMap(ArrayList<String> links) {
-        Map<String, Integer> brokenLinksMap = new HashMap<>();
+    public ArrayList<LinkResponseInfo> getBrokenLinks(ArrayList<String> links) throws IOException, InterruptedException, ExecutionException {
+        ArrayList<LinkResponseInfo> brokenLinks = new ArrayList<>();
+        ArrayList<StatusCodeRecipient> tasks = new ArrayList<>();
 
-        ExecutorService executor = Executors.newFixedThreadPool(10);
+        for (String link: links) {
+            tasks.add(new StatusCodeRecipient(link));
+        }
 
-        links.forEach(link -> {
-            StatusCodeRecipient statusCodeRecipient = new StatusCodeRecipient(link);
-            Future<Integer> result = executor.submit(statusCodeRecipient);
+        ExecutorService executor = Executors.newFixedThreadPool(ConfigUtils.getNumberOfThreads());
+        List<Future<LinkResponseInfo>> resultResponses = executor.invokeAll(tasks);
 
-            try {
-                Integer statusCode = result.get();
+        for (var response: resultResponses) {
+            LinkResponseInfo responseInfo = response.get();
 
-                if (statusCode >= 300 || statusCode == -1) {
-                    brokenLinksMap.put(link, statusCode);
-                }
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
+            if (responseInfo.getNumberStatusCode() >= 300) {
+                brokenLinks.add(new LinkResponseInfo(responseInfo.getUri(), responseInfo.getNumberStatusCode()));
             }
-        });
+        }
 
         executor.shutdown();
 
-        return brokenLinksMap;
+        return brokenLinks;
     }
 }
